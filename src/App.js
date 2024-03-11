@@ -1,5 +1,11 @@
+import { useState, useEffect } from 'react';
+
 function App() {
-  return <main><h1>Example</h1></main>
+  return (
+    <div>
+
+    </div>
+  )
 }
 
 export default App;
