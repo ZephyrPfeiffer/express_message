@@ -4,14 +4,14 @@ const socket = io.connect();
 
 function App() {
 
-  const [message, setMessage] = useState('');
+  const [incomingMessage, setIncomingMessage] = useState('');
 
   const sendMessage = () => {
     socket.emit('chat message', {message: 'hello'});
   }
 
   socket.on('chat message', (data) => {
-    setMessage(data.message);
+    setIncomingMessage(data.message);
   }); 
 
   return (
