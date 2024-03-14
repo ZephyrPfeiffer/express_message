@@ -5,20 +5,25 @@ const socket = io.connect();
 function App() {
 
   const [message, setMessage] = useState('');
+  const [incomingMessage, setIncomingMessage] = useState('');
 
-  const sendMessage = () => {
-    socket.emit('incoming message', {message: 'hello'});
+  const updateMessage = (e) => {
+      setMessage(e.target.value)
   }
 
-  socket.on('outgoing message', (data) => {
-    setMessage(data.message);
+  const sendMessage = () => {
+    socket.emit('chat message', {message: message});
+  }
+
+  socket.on('chat message', (data) => {
+    setIncomingMessage(data.message);
   }); 
 
   return (
     <div>
-      <input placeholder="message..." />
+      <input onChange={updateMessage} placeholder="message..." />
       <button onClick={sendMessage}>Send Message</button>
-      <p>{message}</p>
+      <p>{incomingMessage}</p>
     </div>
   )
 }

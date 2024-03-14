@@ -15,8 +15,8 @@ const PORT = process.env.PORT || 8080;
 
 io.on('connection', (socket) => {
   
-  socket.on('incoming message', (message) => {
-    io.emit('outgoing message', message);
+  socket.on('chat message', (message) => {
+    io.emit('chat message', message);
   })
 
 })
