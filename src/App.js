@@ -7,10 +7,10 @@ function App() {
   const [message, setMessage] = useState('');
 
   const sendMessage = () => {
-    socket.emit('incoming message', {message: 'hello'});
+    socket.emit('chat message', {message: 'hello'});
   }
 
-  socket.on('outgoing message', (data) => {
+  socket.on('chat message', (data) => {
     setMessage(data.message);
   }); 
 
