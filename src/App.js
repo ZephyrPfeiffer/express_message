@@ -4,15 +4,21 @@ const socket = io.connect();
 
 function App() {
 
+  const [message, setMessage] = useState('');
+
   const sendMessage = () => {
-    console.log(socket);
     socket.emit('incoming message', {message: 'hello'});
   }
+
+  socket.on('outgoing message', (data) => {
+    setMessage(data.message);
+  }); 
 
   return (
     <div>
       <input placeholder="message..." />
       <button onClick={sendMessage}>Send Message</button>
+      <p>{message}</p>
     </div>
   )
 }
