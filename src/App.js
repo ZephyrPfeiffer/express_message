@@ -18,7 +18,7 @@ function App() {
     <div>
       <input placeholder="message..." />
       <button onClick={sendMessage}>Send Message</button>
-      <p>{message}</p>
+      <p>{incomingMessage}</p>
     </div>
   )
 }
