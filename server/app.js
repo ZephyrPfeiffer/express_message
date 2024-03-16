@@ -1,27 +1,24 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
+
+app.use(cors());
+app.use(express.static('build'));
+
+const server = createServer(app);
+const io = new Server(server);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => console.log('Sever started'));
-
-const items = [
-
-  {
-    name: 'Baba Ultra Laptop',
-    model: 'baba240X',
-  },
-
-  {
-    name: 'Keke Round Kick Laptop',
-    model: 'kekekick540',
-  }
-
-]
-
-app.get('/api/items', (req, res) => {
-
-  res.send(items)
+io.on('connection', (socket) => {
+  
+  socket.on('chat message', (message) => {
+    io.emit('chat message', message);
+  })
 
 })
+
+server.listen(PORT, () => console.log('Sever started'));
