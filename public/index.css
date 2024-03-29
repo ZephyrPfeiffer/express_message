@@ -1,9 +1,7 @@
 * {
-
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -19,7 +17,8 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  min-width: 480px;
+  min-width: 350px;
+  min-height: 100vh;
   font-size: 1.2rem;
 }
 
@@ -34,6 +33,7 @@ body {
   margin: 0;
   font-family: 'sans-serif';
   min-width: 100%;
+  min-height: 100%;
 }
 
 /**
