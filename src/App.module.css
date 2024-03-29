@@ -1,0 +1,27 @@
+.appContainer {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.messageInterface {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.messageDisplay {
+  width: 100%;
+  height: 80%;
+}
+
+.messageInput {
+  width: 80%;
+  height: 100%;
+}
+
+.submitButton {
+  width: 20%;
+  height: 100%;
+}
