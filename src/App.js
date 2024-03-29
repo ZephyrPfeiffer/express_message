@@ -1,5 +1,7 @@
+import style from './App.module.css'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+
 const socket = io.connect();
 
 function App() {
@@ -17,13 +19,15 @@ function App() {
 
   socket.on('chat message', (data) => {
     setIncomingMessage(data.message);
-  }); 
+  });
 
   return (
-    <div>
-      <input onChange={updateMessage} placeholder="message..." />
-      <button onClick={sendMessage}>Send Message</button>
-      <p>{incomingMessage}</p>
+    <div className={style.appContainer}>
+      <div className={style.messageInterface}>
+        <ul className={style.messageDisplay}></ul>
+        <input onChange={updateMessage} placeholder="message..." />
+        <button>Send Message</button>
+      </div>
     </div>
   )
 }
