@@ -1,23 +1,22 @@
-import style from './App.module.css'
-import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import style from "./App.module.css";
+import { useState, useEffect } from "react";
+import io from "socket.io-client";
 
 const socket = io.connect();
 
 function App() {
-
-  const [message, setMessage] = useState('');
-  const [incomingMessage, setIncomingMessage] = useState('');
+  const [message, setMessage] = useState("");
+  const [incomingMessage, setIncomingMessage] = useState("");
 
   const updateMessage = (e) => {
-      setMessage(e.target.value)
-  }
+    setMessage(e.target.value);
+  };
 
   const sendMessage = () => {
-    socket.emit('chat message', {message: message});
-  }
+    socket.emit("chat message", { message: message });
+  };
 
-  socket.on('chat message', (data) => {
+  socket.on("chat message", (data) => {
     setIncomingMessage(data.message);
   });
 
@@ -25,11 +24,15 @@ function App() {
     <div className={style.appContainer}>
       <div className={style.messageInterface}>
         <ul className={style.messageDisplay}></ul>
-        <input onChange={updateMessage} placeholder="message..." />
-        <button>Send Message</button>
+        <textarea
+          className={style.messageInput}
+          onChange={updateMessage}
+          placeholder="message..."
+        ></textarea>
+        <button className={style.submitButton}>Send Message</button>
       </div>
     </div>
-  )
+  );
 }
 
 export default App;
