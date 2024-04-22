@@ -1,4 +1,5 @@
 import style from "./App.module.css";
+import MessageDisplay from "./components/MessageDisplay";
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
@@ -6,7 +7,7 @@ const socket = io.connect();
 
 function App() {
   const [message, setMessage] = useState("");
-  const [incomingMessage, setIncomingMessage] = useState("");
+  const [displayMessages, setDisplayMessages] = useState([]);
 
   const updateMessage = (e) => {
     setMessage(e.target.value);
@@ -17,19 +18,21 @@ function App() {
   };
 
   socket.on("chat message", (data) => {
-    setIncomingMessage(data.message);
+    setDisplayMessages([...displayMessages, data.message]);
   });
 
   return (
     <div className={style.appContainer}>
       <div className={style.messageInterface}>
-        <ul className={style.messageDisplay}></ul>
+        <MessageDisplay displayMessages={displayMessages} />
         <textarea
           className={style.messageInput}
           onChange={updateMessage}
           placeholder="message..."
         ></textarea>
-        <button className={style.submitButton}>Send Message</button>
+        <button onClick={sendMessage} className={style.submitButton}>
+          Send Message
+        </button>
       </div>
     </div>
   );
