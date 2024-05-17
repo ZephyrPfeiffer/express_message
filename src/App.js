@@ -1,31 +1,44 @@
-import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import style from "./App.module.css";
+import MessageDisplay from "./components/MessageDisplay";
+import { useState, useEffect } from "react";
+import io from "socket.io-client";
+
 const socket = io.connect();
 
 function App() {
-
-  const [message, setMessage] = useState('');
-  const [incomingMessage, setIncomingMessage] = useState('');
+  const [message, setMessage] = useState("");
+  const [displayMessages, setDisplayMessages] = useState([]);
 
   const updateMessage = (e) => {
-      setMessage(e.target.value)
-  }
+    setMessage(e.target.value);
+  };
 
   const sendMessage = () => {
-    socket.emit('chat message', {message: message});
-  }
+    socket.emit("chat message", { message: message });
+  };
 
-  socket.on('chat message', (data) => {
-    setIncomingMessage(data.message);
-  }); 
+  socket.on("chat message", (data) => {
+    setDisplayMessages([...displayMessages, data.message]);
+  });
 
   return (
-    <div>
-      <input onChange={updateMessage} placeholder="message..." />
-      <button onClick={sendMessage}>Send Message</button>
-      <p>{incomingMessage}</p>
+    <div className={style.appContainer}>
+      <div className={style.messageInterface}>
+        <MessageDisplay
+          className={style.messageDisplay}
+          displayMessages={displayMessages}
+        />
+        <textarea
+          className={style.messageInput}
+          onChange={updateMessage}
+          placeholder="message..."
+        ></textarea>
+        <button onClick={sendMessage} className={style.submitButton}>
+          Send
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
 export default App;
