@@ -1,7 +1,9 @@
+import { useState } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
-import { useState, useEffect } from "react";
-import io from "socket.io-client";
 
 const socket = io.connect();
 
@@ -28,6 +30,9 @@ function App() {
           className={style.messageDisplay}
           displayMessages={displayMessages}
         />
+        <Popup open={message ? true : false}>
+          <p>{message}</p>
+        </Popup>
         <textarea
           className={style.messageInput}
           onChange={updateMessage}
