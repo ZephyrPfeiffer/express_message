@@ -24,14 +24,17 @@ function App() {
   return (
     <div className={style.appContainer}>
       <div className={style.messageInterface}>
-        <MessageDisplay displayMessages={displayMessages} />
+        <MessageDisplay
+          className={style.messageDisplay}
+          displayMessages={displayMessages}
+        />
         <textarea
           className={style.messageInput}
           onChange={updateMessage}
           placeholder="message..."
         ></textarea>
         <button onClick={sendMessage} className={style.submitButton}>
-          Send Message
+          Send
         </button>
       </div>
     </div>

@@ -4,22 +4,23 @@
 }
 
 .messageInterface {
-  min-width: 100%;
+  width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: [start] 70% [second] 30% [end];
+  grid-template-rows: [start] 90% [second] 10% [end];
 }
 
 .messageInput {
-  width: 80%;
-  height: 15%;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
   padding: 0.8rem;
   font-size: 1.2rem;
 }
 
 .submitButton {
-  width: 20%;
-  height: 15%;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
   font-size: 1.3rem;
+  overflow: hidden;
 }
