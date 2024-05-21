@@ -1,10 +1,9 @@
 import { useState } from "react";
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
-import MessageOverlay from "./components/MessageOverlay";
 
 const socket = io.connect();
 
@@ -29,16 +28,14 @@ function App() {
       <div className={style.messageInterface}>
         <MessageDisplay
           className={style.messageDisplay}
+          message={message}
           displayMessages={displayMessages}
         />
-        <div className={style.messageInputContainer}>
-          <MessageOverlay />
-          <textarea
-            className={style.messageInput}
-            onChange={updateMessage}
-            placeholder="message..."
-          ></textarea>
-        </div>
+        <textarea
+          className={style.messageInput}
+          onChange={updateMessage}
+          placeholder="message..."
+        ></textarea>
         <button onClick={sendMessage} className={style.submitButton}>
           Send
         </button>
