@@ -1,20 +1,26 @@
-import style from "./MessageOverlay.module.css";
+import style from "./InteractablePreview.module.css";
 
 export default function MessageOverlay({ message }) {
   const words = message.split(" ");
-  const interactableOverlayText = [];
+  const interactablePreviewText = [];
 
   function handleClick() {
     console.log("hello");
   }
 
   for (let i = 0; i < words.length; i++) {
-    interactableOverlayText.push(
+    interactablePreviewText.push(
       <span className={style.word} key={i} onClick={handleClick}>
         {words[i]}
       </span>
     );
   }
 
-  return <div className={style.overlay}>{interactableOverlayText}</div>;
+  if (message) {
+    return (
+      <div className={style.previewContainer}>{interactablePreviewText}</div>
+    );
+  }
+
+  return null;
 }
