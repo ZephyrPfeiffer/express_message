@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./InteractablePreview.module.css";
 
 export default function InteractablePreview({ message }) {
+  const [selectedTextId, setSelectedTextId] = useState(null);
   const interactablePreviewText = [];
   const messageStyling = [];
 
@@ -25,8 +26,8 @@ export default function InteractablePreview({ message }) {
     }
   }
 
-  function handleClick() {
-    console.log(interactablePreviewText, messageStyling);
+  function handleClick(e) {
+    setSelectedTextId(e.target.id);
   }
 
   if (message) {
