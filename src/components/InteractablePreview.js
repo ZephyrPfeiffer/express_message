@@ -1,19 +1,32 @@
+import { useState } from "react";
 import style from "./InteractablePreview.module.css";
 
-export default function MessageOverlay({ message }) {
-  const words = message.split(" ");
+export default function InteractablePreview({ message }) {
   const interactablePreviewText = [];
+  const messageStyling = [];
 
-  function handleClick() {
-    console.log("hello");
+  if (message) {
+    const words = message.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+      if (words[i] !== "") {
+        interactablePreviewText.push(
+          <span
+            id={i}
+            className={style.previewWord}
+            key={i}
+            onClick={handleClick}
+          >
+            {words[i]}
+          </span>
+        );
+        messageStyling.push({ id: i, text: words[i], styling: {} });
+      }
+    }
   }
 
-  for (let i = 0; i < words.length; i++) {
-    interactablePreviewText.push(
-      <span className={style.word} key={i} onClick={handleClick}>
-        {words[i]}
-      </span>
-    );
+  function handleClick() {
+    console.log(interactablePreviewText, messageStyling);
   }
 
   if (message) {
