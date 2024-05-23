@@ -1,6 +1,8 @@
 .previewContainer {
   width: 80%;
   height: 20%;
+  display: flex;
+  flex-wrap: wrap;
   position: absolute;
   top: 0;
   left: 0;
@@ -13,4 +15,9 @@
   font-size: 1.2rem;
   font-family: "sans-serif";
   z-index: 1;
+}
+
+.previewWord {
+  display: inline-block;
+  padding-right: 8px;
 }
