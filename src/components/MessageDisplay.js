@@ -1,8 +1,7 @@
 import style from "./MessageDisplay.module.css";
 import Message from "./Message";
-import InteractablePreview from "./InteractablePreview";
 
-export default function MessageDisplay({ displayMessages, message }) {
+export default function MessageDisplay({ displayMessages }) {
   return (
     <div className={style.messageDisplayContainer}>
       <ul className={style.messageDisplay}>
@@ -10,7 +9,6 @@ export default function MessageDisplay({ displayMessages, message }) {
           return <Message key={index} text={message} />;
         })}
       </ul>
-      <InteractablePreview message={message} />
     </div>
   );
 }
