@@ -7,18 +7,19 @@ export default function InteractablePreview({ message, currentStyling }) {
   const messageStyling = [];
 
   if (message) {
-    const words = message.split(" ");
+    const words = message
+      .split(" ")
+      .filter((word) => (word === "" ? false : true));
 
     for (let i = 0; i < words.length; i++) {
       if (words[i] !== "") {
         messageStyling.push({ id: i, word: words[i], style: {} });
 
-        if (selectedTextId == i && currentStyling) {
+        if (Number(selectedTextId) === i && currentStyling) {
           messageStyling[i].style = {
             ...messageStyling[i].style,
             ...currentStyling,
           };
-          console.log(messageStyling);
         }
 
         interactablePreviewText.push(
