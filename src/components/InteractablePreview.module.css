@@ -1,21 +1,23 @@
 .previewContainer {
-  width: 80%;
-  height: 20%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  border: solid black 3px;
-  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  border-top: solid black 3px;
   padding: 0.8rem;
   font-size: 1.2rem;
   font-family: "sans-serif";
-  z-index: 1;
 }
 
 .previewWord {
   display: inline-block;
   padding-right: 8px;
+}
+
+.sendButton {
+  width: 200px;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
