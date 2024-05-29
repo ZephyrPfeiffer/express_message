@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import style from "./InteractablePreview.module.css";
 
-export default function InteractablePreview({ message, currentStyling }) {
+export default function InteractablePreview({
+  message,
+  currentStyling,
+  sendMessage,
+}) {
   const [selectedTextId, setSelectedTextId] = useState(null);
   const interactablePreviewText = [];
-  const messageStyling = [];
+  const messageStyling = useRef([]);
 
   if (message) {
     const words = message
@@ -13,11 +17,15 @@ export default function InteractablePreview({ message, currentStyling }) {
 
     for (let i = 0; i < words.length; i++) {
       if (words[i] !== "") {
-        messageStyling.push({ id: i, word: words[i], style: {} });
+        if (messageStyling.current[i]) {
+          messageStyling.current[i].word = words[i];
+        } else {
+          messageStyling.current.push({ id: i, word: words[i], style: {} });
+        }
 
         if (Number(selectedTextId) === i && currentStyling) {
-          messageStyling[i].style = {
-            ...messageStyling[i].style,
+          messageStyling.current[i].style = {
+            ...messageStyling.current[i].style,
             ...currentStyling,
           };
         }
@@ -25,7 +33,7 @@ export default function InteractablePreview({ message, currentStyling }) {
         interactablePreviewText.push(
           <span
             id={i}
-            style={messageStyling[i].style}
+            style={messageStyling.current[i].style}
             className={style.previewWord}
             key={i}
             onClick={handleClick}
@@ -37,21 +45,24 @@ export default function InteractablePreview({ message, currentStyling }) {
     }
   }
 
-  // if (currentStyling && selectedTextId) {
-  //   messageStyling[selectedTextId].style = {
-  //     ...messageStyling[selectedTextId].style,
-  //     ...currentStyling,
-  //   };
-  //   console.log(messageStyling);
-  // }
-
   function handleClick(e) {
     setSelectedTextId(e.target.id);
   }
 
   if (message) {
     return (
-      <div className={style.previewContainer}>{interactablePreviewText}</div>
+      <div className={style.previewContainer}>
+        {interactablePreviewText}
+        <button
+          className={style.sendButton}
+          disabled={messageStyling.current.length <= 0 ? true : false}
+          onClick={() => {
+            sendMessage(messageStyling.current);
+          }}
+        >
+          Send
+        </button>
+      </div>
     );
   }
 
