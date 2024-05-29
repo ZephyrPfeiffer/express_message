@@ -18,12 +18,12 @@ function App() {
     setMessage(e.target.value);
   };
 
-  const sendMessage = () => {
-    socket.emit("chat message", { message: message });
+  const sendMessage = (message) => {
+    socket.emit("chat message", { data: message });
   };
 
   socket.on("chat message", (data) => {
-    setDisplayMessages([...displayMessages, data.message]);
+    setDisplayMessages([...displayMessages, data.messageStyling]);
   });
 
   const updateCurrentStyling = (stylingObject) => {
@@ -48,15 +48,13 @@ function App() {
         <InteractablePreview
           message={message}
           currentStyling={currentStyling}
+          sendMessage={sendMessage}
         />
         <textarea
           className={style.messageInput}
           onChange={updateMessage}
           placeholder="message..."
         ></textarea>
-        <button onClick={sendMessage} className={style.submitButton}>
-          Send
-        </button>
       </div>
     </div>
   );
