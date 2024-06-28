@@ -1,12 +1,14 @@
+import { useState, useRef } from "react";
+import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
-import { useState, useEffect } from "react";
-import io from "socket.io-client";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const socket = io.connect();
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState();
   const [displayMessages, setDisplayMessages] = useState([]);
 
   const updateMessage = (e) => {
@@ -28,14 +30,17 @@ function App() {
           className={style.messageDisplay}
           displayMessages={displayMessages}
         />
-        <textarea
-          className={style.messageInput}
-          onChange={updateMessage}
-          placeholder="message..."
-        ></textarea>
-        <button onClick={sendMessage} className={style.submitButton}>
+        <div className={style.editorContainer}>
+          <ReactQuill
+            className={style.inputContainer}
+            theme="snow"
+            value={message}
+            onChange={setMessage}
+          />
+        </div>
+        {/* <button onClick={sendMessage} className={style.submitButton}>
           Send
-        </button>
+        </button> */}
       </div>
     </div>
   );

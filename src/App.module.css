@@ -1,21 +1,29 @@
 .appContainer {
-  min-width: 100%;
   min-height: 100%;
 }
 
 .messageInterface {
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   display: grid;
   grid-template-columns: [start] 70% [second] 30% [end];
-  grid-template-rows: [start] 90% [second] 10% [end];
+  grid-template-rows: [start] 80% [second] 20% [end];
 }
 
-.messageInput {
-  grid-column: 1 / 2;
+.editorContainer {
+  min-height: 100%;
+  grid-column: 1 / 3;
   grid-row: 2 / 3;
-  padding: 0.8rem;
-  font-size: 1.2rem;
+}
+
+.inputContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer:last-child {
+  flex-grow: 1;
 }
 
 .submitButton {
