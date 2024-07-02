@@ -2,21 +2,20 @@ import { useState, useRef } from "react";
 import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import Quill from "./components/Quill";
 
 const socket = io.connect();
 
 function App() {
-  const [message, setMessage] = useState();
+  const [currentContent, setCurrentContent] = useState();
   const [displayMessages, setDisplayMessages] = useState([]);
 
-  const updateMessage = (e) => {
-    setMessage(e.target.value);
+  const showContent = () => {
+    console.log(currentContent);
   };
 
-  const sendMessage = () => {
-    socket.emit("chat message", { message: message });
+  const sendMessage = (quillContent) => {
+    socket.emit("chat message", quillContent);
   };
 
   socket.on("chat message", (data) => {
@@ -31,16 +30,11 @@ function App() {
           displayMessages={displayMessages}
         />
         <div className={style.editorContainer}>
-          <ReactQuill
-            className={style.inputContainer}
-            theme="snow"
-            value={message}
-            onChange={setMessage}
-          />
+          <Quill setCurrentContent={setCurrentContent} />
         </div>
-        {/* <button onClick={sendMessage} className={style.submitButton}>
+        <button onClick={showContent} className={style.submitButton}>
           Send
-        </button> */}
+        </button>
       </div>
     </div>
   );
