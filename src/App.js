@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
@@ -10,16 +10,17 @@ function App() {
   const [editorContent, setEditorContent] = useState();
   const [chatMessages, setChatMessages] = useState([]);
 
-  const showContent = () => {
-    console.log(editorContent);
+  // const showContent = () => {
+  //   console.log(editorContent);
+  // };
+
+  const sendMessage = () => {
+    socket.emit("chat message", editorContent);
   };
 
-  const sendMessage = (quillContent) => {
-    socket.emit("chat message", quillContent);
-  };
-
-  socket.on("chat message", (data) => {
-    setChatMessages([...chatMessages, data.message]);
+  socket.on("chat message", (message) => {
+    console.log(message);
+    setChatMessages([...chatMessages, message]);
   });
 
   return (
@@ -32,7 +33,7 @@ function App() {
         <div className={style.editorContainer}>
           <Quill setEditorContent={setEditorContent} />
         </div>
-        <button onClick={showContent} className={style.submitButton}>
+        <button onClick={sendMessage} className={style.submitButton}>
           Send
         </button>
       </div>

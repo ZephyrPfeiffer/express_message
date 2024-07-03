@@ -25,7 +25,7 @@ export default function Quill({ setEditorContent }) {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        setEditorContent(quill.getContents());
+        setEditorContent(quill.root.innerHTML);
       });
     }
   }, [quill]);

@@ -5,7 +5,7 @@ export default function MessageDisplay({ chatMessages }) {
   return (
     <ul className={style.messageDisplay}>
       {chatMessages.map((message, index) => {
-        return <Message key={index} text={message} />;
+        return <Message key={index} message={message} />;
       })}
     </ul>
   );
