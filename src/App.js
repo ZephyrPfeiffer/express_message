@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import io from "socket.io-client";
 import style from "./App.module.css";
 import MessageDisplay from "./components/MessageDisplay";
@@ -7,19 +7,20 @@ import Quill from "./components/Quill";
 const socket = io.connect();
 
 function App() {
-  const [currentContent, setCurrentContent] = useState();
-  const [displayMessages, setDisplayMessages] = useState([]);
+  const [editorContent, setEditorContent] = useState();
+  const [chatMessages, setChatMessages] = useState([]);
 
-  const showContent = () => {
-    console.log(currentContent);
+  // const showContent = () => {
+  //   console.log(editorContent);
+  // };
+
+  const sendMessage = () => {
+    socket.emit("chat message", editorContent);
   };
 
-  const sendMessage = (quillContent) => {
-    socket.emit("chat message", quillContent);
-  };
-
-  socket.on("chat message", (data) => {
-    setDisplayMessages([...displayMessages, data.message]);
+  socket.on("chat message", (message) => {
+    console.log(message);
+    setChatMessages([...chatMessages, message]);
   });
 
   return (
@@ -27,12 +28,12 @@ function App() {
       <div className={style.messageInterface}>
         <MessageDisplay
           className={style.messageDisplay}
-          displayMessages={displayMessages}
+          chatMessages={chatMessages}
         />
         <div className={style.editorContainer}>
-          <Quill setCurrentContent={setCurrentContent} />
+          <Quill setEditorContent={setEditorContent} />
         </div>
-        <button onClick={showContent} className={style.submitButton}>
+        <button onClick={sendMessage} className={style.submitButton}>
           Send
         </button>
       </div>
