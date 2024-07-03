@@ -7,11 +7,11 @@ import Quill from "./components/Quill";
 const socket = io.connect();
 
 function App() {
-  const [currentContent, setCurrentContent] = useState();
-  const [displayMessages, setDisplayMessages] = useState([]);
+  const [editorContent, setEditorContent] = useState();
+  const [chatMessages, setChatMessages] = useState([]);
 
   const showContent = () => {
-    console.log(currentContent);
+    console.log(editorContent);
   };
 
   const sendMessage = (quillContent) => {
@@ -19,7 +19,7 @@ function App() {
   };
 
   socket.on("chat message", (data) => {
-    setDisplayMessages([...displayMessages, data.message]);
+    setChatMessages([...chatMessages, data.message]);
   });
 
   return (
@@ -27,10 +27,10 @@ function App() {
       <div className={style.messageInterface}>
         <MessageDisplay
           className={style.messageDisplay}
-          displayMessages={displayMessages}
+          chatMessages={chatMessages}
         />
         <div className={style.editorContainer}>
-          <Quill setCurrentContent={setCurrentContent} />
+          <Quill setEditorContent={setEditorContent} />
         </div>
         <button onClick={showContent} className={style.submitButton}>
           Send

@@ -3,7 +3,7 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import style from "./Quill.module.css";
 
-export default function Quill({ setCurrentContent }) {
+export default function Quill({ setEditorContent }) {
   const theme = "snow";
   // const theme = 'bubble';
 
@@ -25,7 +25,7 @@ export default function Quill({ setCurrentContent }) {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        setCurrentContent(quill.getContents());
+        setEditorContent(quill.getContents());
       });
     }
   }, [quill]);
