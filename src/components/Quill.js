@@ -1,14 +1,27 @@
 import { useEffect } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
-import style from "./Quill.module.css";
 
 export default function Quill({ setEditorContent }) {
   const theme = "snow";
   // const theme = 'bubble';
 
   const modules = {
-    toolbar: [["bold", "italic", "underline", "strike"]],
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote", "code-block"],
+      ["link", "image", "video", "formula"],
+
+      [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+
+      ["clean"], // remove formatting button
+    ],
   };
 
   const placeholder = "Compose an epic...";
@@ -18,17 +31,17 @@ export default function Quill({ setEditorContent }) {
   const { quill, quillRef } = useQuill({
     theme,
     modules,
-    formats,
     placeholder,
   });
 
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        setEditorContent(quill.root.innerHTML);
+        console.log(quill.getSemanticHTML());
+        setEditorContent(quill.getSemanticHTML());
       });
     }
   }, [quill]);
 
-  return <div className={style.quill} ref={quillRef} />;
+  return <div ref={quillRef} />;
 }
