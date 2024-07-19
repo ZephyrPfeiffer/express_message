@@ -27,7 +27,20 @@ export default function Quill({ setEditorContent }) {
     syntax: { hljs },
   };
 
-  const formats = ["code-block", "blockquote", "script", "list"];
+  const formats = [
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "code-block",
+    "list",
+    "script",
+    "header",
+    "color",
+    "background",
+    "font",
+  ];
 
   const placeholder = "Compose an epic...";
 
