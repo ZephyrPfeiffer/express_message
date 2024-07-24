@@ -17,14 +17,17 @@ function App() {
   const sendMessage = () => {
     socket.emit("sent message", {
       message: editorContent,
-      id: socket.id,
+      messageID: socket.id,
     });
   };
 
   socket.on("chat message", (messageInformation) => {
     setChatMessages([
       ...chatMessages,
-      { message: messageInformation.message, messageId: messageInformation.id },
+      {
+        message: messageInformation.message,
+        messageID: messageInformation.messageID,
+      },
     ]);
   });
 

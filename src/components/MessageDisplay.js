@@ -9,7 +9,7 @@ export default function MessageDisplay({ chatMessages, userID }) {
           <Message
             key={index}
             message={messageInfo.message}
-            messageID={messageInfo.id}
+            messageID={messageInfo.messageID}
             userID={userID}
           />
         );
