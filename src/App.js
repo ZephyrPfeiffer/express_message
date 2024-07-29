@@ -15,12 +15,20 @@ function App() {
   // };
 
   const sendMessage = () => {
-    socket.emit("chat message", editorContent);
+    socket.emit("sent message", {
+      message: editorContent,
+      messageID: socket.id,
+    });
   };
 
-  socket.on("chat message", (message) => {
-    console.log(message);
-    setChatMessages([...chatMessages, message]);
+  socket.on("chat message", (messageInformation) => {
+    setChatMessages([
+      ...chatMessages,
+      {
+        message: messageInformation.message,
+        messageID: messageInformation.messageID,
+      },
+    ]);
   });
 
   return (
@@ -29,6 +37,7 @@ function App() {
         <MessageDisplay
           className={style.messageDisplay}
           chatMessages={chatMessages}
+          userID={socket.id}
         />
         <div className={style.editorContainer}>
           <Quill setEditorContent={setEditorContent} />

@@ -54,7 +54,6 @@ export default function Quill({ setEditorContent }) {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        console.log(quill.getSemanticHTML());
         setEditorContent(quill.getSemanticHTML());
       });
     }
