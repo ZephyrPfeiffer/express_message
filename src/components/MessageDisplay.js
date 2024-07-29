@@ -1,11 +1,18 @@
 import style from "./MessageDisplay.module.css";
 import Message from "./Message";
 
-export default function MessageDisplay({ displayMessages }) {
+export default function MessageDisplay({ chatMessages, userID }) {
   return (
     <ul className={style.messageDisplay}>
-      {displayMessages.map((message, index) => {
-        return <Message key={index} text={message} />;
+      {chatMessages.map((messageInfo, index) => {
+        return (
+          <Message
+            key={index}
+            message={messageInfo.message}
+            messageID={messageInfo.messageID}
+            userID={userID}
+          />
+        );
       })}
     </ul>
   );
