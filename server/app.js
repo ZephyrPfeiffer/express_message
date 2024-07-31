@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const dbConnect = require("./db/dbConnect");
 
 const app = express();
 const { createServer } = require("node:http");
@@ -12,6 +13,8 @@ const server = createServer(app);
 const io = new Server(server);
 
 const PORT = process.env.PORT || 8080;
+
+dbConnect();
 
 io.on("connection", (socket) => {
   socket.on("sent message", (messageInformation) => {
